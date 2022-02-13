@@ -38,16 +38,19 @@ class Tkw(object):
         self.tkw.geometry('1200x640+%d+%d'%(a[0][0],a[0][1]))
         self.tkw.iconbitmap('D:\pycode\image\pycode.ico')
         #fontsetting
+        self.filetree = tk.Frame(self.tkw,bg='blue',width=280)
+        self.filetree.pack(side='left',fill='y')
         self.enb = CustomNotebook(self.cangefunc,self.closefunc,self.tkw)
         self.enb.pack(side='top',fill='both',expand=True)
         self.enb.enable_traversal()
         self.start = tk.Label(self.tkw,text='大煤气',bg='red')
         self.enb.add(self.start,text='hi')
         self.enb.enable_traversal()
-        # self.frame1 = tk.Frame(self.tkw,bg='red')
-        # self.frame1.pack(side='left',fill='x',expand=True)
-        self.console = tk.Text(self.tkw,undo=True,yscrollcommand=True)
-        self.console.pack(side='bottom',fill='x',)
+        self.elabel = tk.Label(self.tkw,text='')
+        self.elabel.pack(side='bottom',fill='x')
+        self.console = tk.Text(self.tkw,undo=True,yscrollcommand=True,height=17)
+        self.console.pack(side='bottom',fill='x')
+        self.editframe = tk.Frame(self.tkw)
         self.sm = True
 
         self.topmenu = tk.Menu(self.tkw)
@@ -69,6 +72,12 @@ class Tkw(object):
         self.topmenu.add_command(label='运行(R)',command=self.run)
         self.tkw.bind('<Control-Alt-r>',self.run)
         self.tkw.config(menu=self.topmenu)
+        self.tkw.bind('<Button-3>',self.buttom3)
+        self.tkw.bind("<Button 1>", self.updateelabel)
+        self.tkw.bind("<Left>", self.updateelabel)
+        self.tkw.bind("<Right>", self.updateelabel)
+        self.tkw.bind("<Up>", self.updateelabel)
+        self.tkw.bind("<Down>", self.updateelabel)
         self.tkw.mainloop()
     def fileopen(self,n=None,):
         self.tfilepath = filedialog.askopenfilename()
@@ -165,4 +174,22 @@ class Tkw(object):
         pass    
     def closefunc():
         pass
+    def buttom3():
+        pass
+    def updateelabel(self,even):
+        self.tnowfile = self.windowList[int(self.enb.select()[-1])-2]
+        cursor_position = self.tnowfile[0].index(tk.INSERT)
+        cu_po_l = ''
+        cu_po_c = ''
+        nowv = 'l'
+        for i in cursor_position:
+            if nowv == 'l':
+                if i != '.':
+                    cu_po_l += i
+                elif i == '.':
+                    nowv = 'c'
+            elif nowv == 'c':
+                cu_po_c += i
+        widgetvar = self.tnowfile[1].filename
+        self.elabel.config(text=widgetvar+'    Line: '+cu_po_l+' | Column: '+cu_po_c)
 tkw1 = Tkw([xy,None])
