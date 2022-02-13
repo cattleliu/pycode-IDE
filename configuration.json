@@ -1,0 +1,34 @@
+{
+    "username":"name",
+    "path":"D:\\pycode\\pycode.py",
+    "cl":{".py":"python",".c":"C",".cpp":"C++",".cp":"C++",".txt":"doc"},
+    "image":{".py":"image\\py.jpg",".c":"image\\c.jpg",".cpp":"image\\cpp.jpg"},
+    "python":
+    {
+        "compiler":"py",
+        "extension":[".py"],
+        "interpretationTemplate":"py {file}",
+        "compileTemplate":"py {modulepath} {file}"
+    },
+    "C++":
+    {
+        "compiler":"g++",
+        "extension":[".cpp",".cp"],
+        "interpretationTemplate":null,
+        "compileTemplate":"g++ -fdiagnostics-color=always -g {file} -o {filenameNoExtension}.exe"
+    },
+    "C":
+    {
+        "compiler":"gcc",
+        "extension":[".c"],
+        "interpretationTemplate":null,
+        "compileTemplate":"gcc -fdiagnostics-color=always -g {file} -o {filenameNoExtension}.exe"
+    },
+    "doc":
+    {
+        "compile":null,
+        "extension":[".doc",".txt"],
+        "interpretationTemplate":null,
+        "compilattemplate":null
+    }
+}
